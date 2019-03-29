@@ -13,21 +13,20 @@ app.get('/', function (req, res) {
 var mesage;
 var bmp;
 io.on('connection', function (socket) {
-
-  socket.on('bmp', function (dato) {
-    console.log(dato);
-   bmp =dato;
+  console.log("Entro")
+  socket.on('bmp', function (datos) {
+    console.log(datos);
+   bmp =datos;
     
    }
   );
   socket.emit('bmpreceive',bmp);
 
-  socket.on('my other event', function (data) {
-   console.log(data);
-   mesage =data;
-   
-  }
- );
+  socket.on('sendData', function (data) {
+    console.log(data);
+    mesage=data;
+  });
+
  socket.emit('news',mesage);
  
 });
