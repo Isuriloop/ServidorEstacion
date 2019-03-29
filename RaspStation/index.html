@@ -1,0 +1,139 @@
+
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+</head>
+<body class="general">
+    <nav class="navbar navbar-dark bg-primary">
+            <a class="navbar-brand" href="https://google.com" style="">Estación Meteorológica</a>   
+            
+    </nav>
+   
+    <div class="wrapper">
+            <div class="cuadrado"></div>
+          </div>
+          <div>
+                <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Datos</th>
+                            <th scope="col">Temperatura</th>
+                            <th scope="col">Humedad</th>
+                            <th scope="col">Presión Atmosférica</th>
+                            <th scope="col">Altitud</th>
+                           
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td id="logger2"></td>
+                            <td id="logger"></td>
+                            <td id="logger5"></td>
+                            <td id="logger6"></td>
+                           
+                          
+                          </tr>
+                        </tbody>
+                      </table>
+          </div>
+          <div id="$logger3"></div>
+
+          
+</body>
+</html>
+    
+
+
+              <style>
+
+                  *{
+                    box-sizing: border-box;
+                  }
+                  .wrapper{
+                    width: 60%;
+                    margin: 0 auto;
+                  }
+                  .cuadrado{
+                      font-family: sans-serif;
+                    color: white;
+                    padding: 26.2%;
+                      float:left;
+                      width: auto;
+                      margin-right:auto;
+                      background-image: url(/resources/Clima_CDMX.jpg);
+                  }
+                  .general{
+                      background-color: rgb(223, 239, 255);
+                  }
+                  </style>
+
+
+
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        function logger(msg){
+      $("#logger").text(msg);
+
+  }
+  function logger3(msg){
+      $("#logger3").text(msg);
+
+  }
+
+
+  function logger2(msg){
+      $("#logger2").text(msg);
+
+  }
+  function logger4(msg){
+      $("#logger4").text(msg);
+
+  }
+  function logger5(msg){
+      $("#logger5").text(msg);
+
+  }
+  function logger6(msg){
+      $("#logger6").text(msg);
+
+  }
+  function logger7(msg){
+      $("#logger7").text(msg);
+
+  }
+      var valor;
+      var bmpr;
+      var socket = io.connect('http://localhost:3002');
+      socket.on('bmpreceive', function (data) {
+        console.log(data)
+        logger4(data[0])
+        logger5(data[1])
+        logger6(data[2])
+        logger7(data[3])
+         bmpr=data;
+         
+      });
+      socket.on('news', function (data) {
+        console.log(data)
+        valor =data;
+        logger(data.humidity);
+        logger2(data.temperature);
+     
+        
+      });
+
+     
+    </script>
+</body>
+</html>
