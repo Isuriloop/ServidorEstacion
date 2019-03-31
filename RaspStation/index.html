@@ -14,7 +14,7 @@
 
 <body class="general">
   <nav class="navbar navbar-dark bg-primary">
-    <a class="navbar-brand" href="https://google.com" style="">Estación Meteorológica</a>
+    <a class="navbar-brand" href="../index2.html" style="">Estación Meteorológica</a>
 
   </nav>
   <div align="center"> 
@@ -57,7 +57,13 @@
     </table>
   </div>
   <div id="$logger3"></div>
+<br><br>
 
+<div align="center">
+    <h2>Ubicacion</h1>
+    <br>
+<div id="map"></div></div>
+<br><br>
 
 </body>
 
@@ -66,10 +72,14 @@
 
 
 <style>
+
   * {
     box-sizing: border-box;
   }
-
+  #map {
+        height: 70%;
+        width:  70%;
+      }
   .wrapper {
     width: 60%;
     margin: 0 auto;
@@ -128,7 +138,7 @@
   }
   var valor;
   var bmpr;
-  var socket = io.connect('http://localhost:3002');
+  var socket = io.connect('http://192.168.43.159:3002');
   socket.on('bmpreceive', function (data) {
     console.log(data)
     if (data != null) {
@@ -153,6 +163,44 @@
 
 
 </script>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+
+  var latitud;
+  var longitud;
+  var socket = io.connect('http://192.168.0.8:3002');
+
+
+  socket.on('receivegps', function (data) {
+    
+ 
+    console.log(data[1])
+    map = new google.maps.Map(document.getElementById('map'), {
+              
+              center: {lat: parseFloat(data[0]), lng: parseFloat(data[1])},
+              zoom: 18
+            });
+
+  });
+
+
+
+</script>
+  <script>
+        var map;
+        function initMap() {
+          map = new google.maps.Map(document.getElementById('map'), {
+              
+            center: {lat: parseFloat(1), lng: parseFloat(longitud)},
+            zoom: 11
+          });
+        }
+      </script>
+<script async defer 
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2DLyD4gaNriocNPNXkvt1fBfUPN_LNN8&callback=initMap"
+ ></script>
 </body>
 
 </html>

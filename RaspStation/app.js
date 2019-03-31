@@ -12,12 +12,38 @@ app.get('/', function (req, res) {
 
 var mesage;
 var bmp;
+var latitud;
+var longitud;
+var latitud;
+var latlon = new Array();
 io.on('connection', function (socket) {
-  console.log("Entro")
+
+  socket.on('lat', function (data) {
+    if (data != null) {
+    
+latitud =data;
+    latlon[0] = latitud;
+    console.log(latlon[0]);
+    }
+   }
+  );
+
+  
+  socket.on('lon', function (data) {
+    if (data != null) {
+    //console.log(data);
+    latlon[1] = data;
+       
+  }
+
+   }
+  );
+  socket.emit('receivegps',latlon);
+
   socket.on('bmp', function (datos) {
     console.log(datos);
    bmp =datos;
-    
+   console.log("Entro")
    }
   );
   socket.emit('bmpreceive',bmp);
